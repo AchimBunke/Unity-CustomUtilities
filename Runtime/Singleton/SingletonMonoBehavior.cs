@@ -242,9 +242,9 @@ namespace UnityUtilities.Singleton
                 // We are destroying the current instance...
 
                 // ... this should only be the case on application quit.
-                WarnMessage(
-                    $"Deleting <b>current</b> instance of '{typeof(T)}' attached to '{_instance.name}'. This " +
-                    $"should only be the case on application quit.");
+                //WarnMessage(
+                //    $"Deleting <b>current</b> instance of '{typeof(T)}' attached to '{_instance.name}'. This " +
+                //    $"should only be the case on application quit.");
 
                 // Prevent recreations.
                 _instanceDestroyed = true;
