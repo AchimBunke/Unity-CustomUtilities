@@ -6,7 +6,8 @@
   "unity": "2022.1",
   "unityRelease": "0b5",
   "dependencies": {
- },
+    "com.unity.nuget.newtonsoft-json": "3.0.2"
+  },
   "author": {
     "name": "Achioto",
     "email": "achioto.solo@gmail.com"
