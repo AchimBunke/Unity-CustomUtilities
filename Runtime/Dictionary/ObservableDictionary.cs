@@ -65,8 +65,15 @@ public class ObservableDictionary<TKey,TValue> : Dictionary<TKey, TValue>, INoti
         get => base[key];
         set
         {
+            var replaced = TryGetValue(key, out var oldValue);
             base[key] = value;
-            CollectionChanged?.Invoke(this, new NotifyDictionaryChangedEventArgs(NotifyCollectionChangedAction.Add, new KeyValuePair<TKey, TValue>(key, value)));
+            if (replaced)
+                CollectionChanged?.Invoke(this, new NotifyDictionaryChangedEventArgs(
+                    NotifyCollectionChangedAction.Replace,
+                    new KeyValuePair<TKey, TValue>(key, value),
+                    new KeyValuePair<TKey, TValue>(key, oldValue)));
+            else
+                CollectionChanged?.Invoke(this, new NotifyDictionaryChangedEventArgs(NotifyCollectionChangedAction.Add, new KeyValuePair<TKey, TValue>(key, value)));
         }
     }
     public new void Clear()
