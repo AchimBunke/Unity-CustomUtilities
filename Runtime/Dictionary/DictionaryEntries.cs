@@ -6,6 +6,12 @@ using UnityEngine;
 namespace UnityUtilities.Dictionary
 {
     [Serializable]
+    public struct DictionaryEntry<TKey,TValue>
+    {
+        public TKey key;
+        public TValue value;
+    }
+    [Serializable]
     public struct ObjectDictionaryEntry
     {
         public ObjectDictionaryEntry(string key, UnityEngine.Object value) 
