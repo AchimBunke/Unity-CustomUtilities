@@ -1,8 +1,8 @@
+using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
-using System.Linq;
-using System.IO;
 using UnityUtilities.SceneManagement;
 
 namespace UnityUtilities.AssetManagement
