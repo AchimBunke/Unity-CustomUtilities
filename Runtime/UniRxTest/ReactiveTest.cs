@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UniRx;
 using UnityEngine;
+
+#if USE_UNIRX_7_1
+using UniRx;
 
 namespace UnityUtilities.Persistence
 {
@@ -13,3 +15,4 @@ namespace UnityUtilities.Persistence
         }
     }
 }
+#endif
