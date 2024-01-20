@@ -6,15 +6,9 @@
   "unity": "2022.1",
   "unityRelease": "0b5",
   "dependencies": {
-    "com.unity.nuget.newtonsoft-json": "3.0.2"
+    "com.unity.nuget.newtonsoft-json": "3.0.2",
+    "com.neuecc.unirx" : "7.1.0"
   },
-  "scopedRegistries" : [
-    {
-      "name": "UniRx",
-      "url": "https://github.com/neuecc/UniRx.git?path=Assets/Plugins/UniRx/Scripts",
-      "scopes": ["com.neuecc.unirx"]
-    }
-  ],
   "author": {
     "name": "Achioto",
     "email": "achioto.solo@gmail.com"
