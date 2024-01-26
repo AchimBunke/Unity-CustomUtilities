@@ -1,6 +1,6 @@
 {
     "name": "customutilities",
-    "rootNamespace": "",
+    "rootNamespace": "UnityUtilities",
     "references": [
         "GUID:560b04d1a97f54a4e82edc0cbbb69285"
     ],
@@ -8,7 +8,9 @@
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
-    "precompiledReferences": [],
+    "precompiledReferences": [
+        ""
+    ],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [
