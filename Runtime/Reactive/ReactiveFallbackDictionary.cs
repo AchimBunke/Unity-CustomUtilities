@@ -49,10 +49,10 @@ namespace UnityUtilities.Reactive
                 _baseDictionary = value;
                 if (_baseDictionary != null)
                 {
-                    _baseAddSubscription = _baseDictionary.ObserveAdd().Subscribe(OnFallbackAdd);
+                    _baseAddSubscription = _baseDictionary.ObserveAdd().Subscribe(OnBaseAdd);
                     _baseCountSubscription = _baseDictionary.ObserveCountChanged().Subscribe(OnCountChanged);
-                    _baseRemoveSubscription = _baseDictionary.ObserveRemove().Subscribe(OnFallbackRemove);
-                    _baseReplaceSubscription = _baseDictionary.ObserveReplace().Subscribe(OnFallbackReplace);
+                    _baseRemoveSubscription = _baseDictionary.ObserveRemove().Subscribe(OnBaseRemove);
+                    _baseReplaceSubscription = _baseDictionary.ObserveReplace().Subscribe(OnBaseReplace);
                     _baseResetSubscription = _baseDictionary.ObserveReset().Subscribe(OnReset);
                 }
                 OnReset(UniRx.Unit.Default);
