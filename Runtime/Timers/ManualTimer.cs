@@ -3,7 +3,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace UnityUtilities.Timers
 {
-    public class ManualTimer
+    public class ManualTimer : ITimer
     {
         public event Action Elapsed;
         public bool AutoReset { get; set; } = true;
