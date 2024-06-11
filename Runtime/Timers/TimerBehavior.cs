@@ -8,7 +8,7 @@ namespace UnityUtilities.Timers
 {
     public class TimerBehavior : MonoBehaviour
     {
-        [SerializeField] protected float interval = 1f;
+        [SerializeField] protected float interval = 5f;
         [SerializeField] protected bool autoReset = true;
 
         protected ManualTimer _manualTimer;

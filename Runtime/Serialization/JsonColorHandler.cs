@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace UnityUtilities.Serialization
 {
+    /*
     /// <summary>
     /// Using https://medium.com/@altaf.navalur/serialize-deserialize-color-objects-in-unity-1731e580af94
     /// </summary>
@@ -41,5 +42,6 @@ namespace UnityUtilities.Serialization
             string val = ColorUtility.ToHtmlStringRGB((Color)value);
             writer.WriteValue(val);
         }
+    */
     }
 }
