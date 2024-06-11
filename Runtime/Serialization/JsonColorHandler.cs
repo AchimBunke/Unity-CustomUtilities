@@ -42,6 +42,7 @@ namespace UnityUtilities.Serialization
             string val = ColorUtility.ToHtmlStringRGB((Color)value);
             writer.WriteValue(val);
         }
-    */
+
     }
+        */
 }
