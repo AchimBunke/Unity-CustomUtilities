@@ -1,3 +1,4 @@
+using Codice.Client.BaseCommands;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -36,11 +37,11 @@ namespace UnityUtilities.Timers
             if (_manualTimer == null)
                 _manualTimer = new ManualTimer(interval);
             EditorApplication.focusChanged += OnEditorFocusChanged;
-            _manualTimer.Start();
+            StartTimer();
         }
         private void OnDisable()
         {
-            _manualTimer.Stop();
+            StopTimer();
             EditorApplication.focusChanged -= OnEditorFocusChanged;
         }
         private static double lastUpdateTime = 0;
@@ -59,6 +60,33 @@ namespace UnityUtilities.Timers
         {
             
         }
-
+        public void StartTimer()
+        {
+            _manualTimer.Start();
+        }
+        public void StopTimer()
+        {
+            _manualTimer.Stop();
+        }
+        public bool Enabled => _manualTimer.Enabled;
     }
+    [CustomEditor(typeof(EditorTimerBehavior))]
+    public class EditorTimerBehaviorEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            EditorTimerBehavior editorTimerBehavior = (EditorTimerBehavior)target;
+
+            if (GUILayout.Button(editorTimerBehavior.Enabled ? "Stop" : "Start"))
+            {
+                if(editorTimerBehavior.Enabled)
+                    editorTimerBehavior.StopTimer();
+                else
+                    editorTimerBehavior.StartTimer();
+            }
+           
+        }
+    }
+
 }
