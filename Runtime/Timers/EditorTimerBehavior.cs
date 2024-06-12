@@ -51,7 +51,7 @@ namespace UnityUtilities.Timers
             if(!Application.isPlaying)
                 EditorApplication.focusChanged -= OnEditorFocusChanged;
         }
-        private static double lastUpdateTime = 0;
+        private double lastUpdateTime = 0;
         private void Update()
         {
             double currentTime = EditorApplication.timeSinceStartup;
