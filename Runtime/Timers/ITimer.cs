@@ -8,7 +8,7 @@ namespace UnityUtilities.Timers
         public bool AutoReset { get; set; }
         public bool Enabled { get; set; }
         public float Interval { get; set; }
-        public void Start();
-        public void Stop();
+        public void StartTimer();
+        public void StopTimer();
     }
 }

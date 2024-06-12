@@ -53,11 +53,11 @@ namespace UnityUtilities.Timers
             }
 
         }
-        public void Start()
+        public void StartTimer()
         {
             Enabled = true;
         }
-        public void Stop()
+        public void StopTimer()
         {
             Enabled = false;
         }

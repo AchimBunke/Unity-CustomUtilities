@@ -1,6 +1,3 @@
-using Codice.Client.BaseCommands;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,18 +9,19 @@ namespace UnityUtilities.Timers
         [SerializeField] protected float unfocusedEditorInterval = 60000f;
         [SerializeField, HideInInspector] float _intervalCheck;
         [SerializeField, HideInInspector] bool _autoResetCheck;
+        [SerializeField] protected bool _runInPlayMode = false;
 
         private void OnValidate()
         {
             if (_intervalCheck != interval)
             {
-                Timer.Interval = interval;
+                _manualTimer.Interval = interval;
                 _intervalCheck = interval;
             }
 
             if (_autoResetCheck != autoReset)
             {
-                Timer.AutoReset = autoReset;
+                _manualTimer.AutoReset = autoReset;
                 _autoResetCheck = autoReset;
             }
         }
@@ -34,15 +32,24 @@ namespace UnityUtilities.Timers
         }
         private void OnEnable()
         {
+            if(!_runInPlayMode && Application.isPlaying)
+            {
+                this.enabled = false;
+            }
             if (_manualTimer == null)
+            {
                 _manualTimer = new ManualTimer(interval);
-            EditorApplication.focusChanged += OnEditorFocusChanged;
+                _manualTimer.AutoReset = autoReset;
+            }
+            if(!Application.isPlaying)
+                EditorApplication.focusChanged += OnEditorFocusChanged;
             StartTimer();
         }
         private void OnDisable()
         {
             StopTimer();
-            EditorApplication.focusChanged -= OnEditorFocusChanged;
+            if(!Application.isPlaying)
+                EditorApplication.focusChanged -= OnEditorFocusChanged;
         }
         private static double lastUpdateTime = 0;
         private void Update()
@@ -58,17 +65,8 @@ namespace UnityUtilities.Timers
         }
         private void FixedUpdate()
         {
-            
+
         }
-        public void StartTimer()
-        {
-            _manualTimer.Start();
-        }
-        public void StopTimer()
-        {
-            _manualTimer.Stop();
-        }
-        public bool Enabled => _manualTimer.Enabled;
     }
     [CustomEditor(typeof(EditorTimerBehavior))]
     public class EditorTimerBehaviorEditor : Editor
@@ -77,16 +75,17 @@ namespace UnityUtilities.Timers
         {
             base.OnInspectorGUI();
             EditorTimerBehavior editorTimerBehavior = (EditorTimerBehavior)target;
-
-            if (GUILayout.Button(editorTimerBehavior.Enabled ? "Stop" : "Start"))
+            if (editorTimerBehavior.isActiveAndEnabled)
             {
-                if(editorTimerBehavior.Enabled)
-                    editorTimerBehavior.StopTimer();
-                else
-                    editorTimerBehavior.StartTimer();
+                if (GUILayout.Button(editorTimerBehavior.Enabled ? "Stop" : "Start"))
+                {
+                    if (editorTimerBehavior.Enabled)
+                        editorTimerBehavior.StopTimer();
+                    else
+                        editorTimerBehavior.StartTimer();
+                }
             }
-           
+
         }
     }
-
 }
