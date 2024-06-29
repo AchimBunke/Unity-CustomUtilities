@@ -29,11 +29,17 @@ namespace UnityUtilities.Timers
 
         private void Awake()
         {
+            CreateManualTimer();
+        }
+        private void CreateManualTimer()
+        {
             _manualTimer = new ManualTimer(interval);
             _manualTimer.AutoReset = autoReset;
         }
         private void OnEnable()
         {
+            if(_manualTimer == null)
+                CreateManualTimer();
             StartTimer();
         }
         private void OnDisable()
