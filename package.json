@@ -1,7 +1,7 @@
 {
-  "name": "com.customutilities",
+  "name": "achioto.custom-utilities",
   "version": "0.3.0",
-  "displayName": "CustomUtilities",
+  "displayName": "Custom Utilities",
   "description": "A set of useful unity components",
   "unity": "2022.1",
   "unityRelease": "0b5",

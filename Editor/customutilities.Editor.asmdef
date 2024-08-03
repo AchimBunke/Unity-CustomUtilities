@@ -1,5 +1,5 @@
 {
-    "name": "customutilities.Editor",
+    "name": "custom-utilities.Editor",
     "rootNamespace": "",
     "references": [
         "GUID:560b04d1a97f54a4e82edc0cbbb69285",
