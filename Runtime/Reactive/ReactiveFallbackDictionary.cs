@@ -76,7 +76,7 @@ namespace UnityUtilities.Reactive
                 _fallbackDictionary = value;
                 if (CheckForCircularDependency(value))
                 {
-                    throw new ArgumentException("Circular dependency detected in FallbackDictionaries!".);
+                    throw new ArgumentException("Circular dependency detected in FallbackDictionaries!");
                 }
                 if (_fallbackDictionary != null)
                 {
