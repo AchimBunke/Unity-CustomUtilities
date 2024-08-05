@@ -74,8 +74,13 @@ namespace UnityUtilities.Reactive
                     DisposeFallbackSubscriptions();
                 }
                 _fallbackDictionary = value;
+                if (CheckForCircularDependency(value))
+                {
+                    throw new ArgumentException("Circular dependency detected in FallbackDictionaries!".);
+                }
                 if (_fallbackDictionary != null)
                 {
+                   
                     _fallbackAddSubscription = _fallbackDictionary.ObserveAdd().Subscribe(OnFallbackAdd);
                     _fallbackCountSubscription = _fallbackDictionary.ObserveCountChanged().Subscribe(OnCountChanged);
                     _fallbackRemoveSubscription = _fallbackDictionary.ObserveRemove().Subscribe(OnFallbackRemove);
@@ -85,7 +90,18 @@ namespace UnityUtilities.Reactive
                 OnReset(UniRx.Unit.Default);
             }
         }
-
+        private bool CheckForCircularDependency(IReadOnlyReactiveDictionary<TKey,TValue> fallbackDictionary)
+        {
+            HashSet<IReadOnlyReactiveDictionary<TKey, TValue>> visitedDictionaries = new HashSet<IReadOnlyReactiveDictionary<TKey, TValue>>();
+            while (fallbackDictionary is ReactiveFallbackDictionary<TKey, TValue> current)
+            {
+                if (visitedDictionaries.Contains(current))
+                    return true;
+                visitedDictionaries.Add(current);
+                fallbackDictionary = current.FallbackDictionary;
+            }
+            return false;
+        }
 
         [NonSerialized]
         FallbackEqualityComparer _fallbackEqualityComparer = new();
@@ -173,11 +189,6 @@ namespace UnityUtilities.Reactive
             }
         }
 
-        private IEnumerable<KeyValuePair<TKey, TValue>> GetFallbackItems()
-        {
-            return _fallbackDictionary?.Except(_baseDictionary?.AsEnumerable() ?? new KeyValuePair<TKey, TValue>[] { }, _fallbackEqualityComparer) ?? new KeyValuePair<TKey, TValue>[] { };
-        }
-
         public int Count => (_baseDictionary?.Count ?? 0) + (_fallbackDictionary?.Count(entry => !_baseDictionary.ContainsKey(entry.Key)) ?? 0);
 
         public bool ContainsKey(TKey key)
@@ -187,17 +198,26 @@ namespace UnityUtilities.Reactive
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            foreach (var kvp in _baseDictionary?.AsEnumerable() ?? new KeyValuePair<TKey, TValue>[] { })
+            HashSet<TKey> yieldedBaseKeys = new HashSet<TKey>(_baseDictionary.Count);
+            if (_baseDictionary != null)
             {
-                yield return kvp;
+                foreach (var kvp in _baseDictionary)
+                {
+                    yieldedBaseKeys.Add(kvp.Key);
+                    yield return kvp;
+                }
             }
-            var fallbackItems = GetFallbackItems();
-            foreach (var fallbackItem in fallbackItems)
+            if (_fallbackDictionary != null)
             {
-                yield return fallbackItem;
+                foreach (var kvp in _fallbackDictionary)
+                {
+                    if (!yieldedBaseKeys.Contains(kvp.Key))
+                    {
+                        yield return kvp;
+                    }
+                }
             }
         }
-
 
         private void OnBaseAdd(DictionaryAddEvent<TKey, TValue> evt)
         {
