@@ -10,13 +10,13 @@ namespace UnityUtilities.Attributes
     public class ShowIfBoolAttribute : PropertyAttribute
     {
         public string ConditionalSourceField;
-        public bool expectedValue;
+        public bool ExpectedValue;
         public bool HideInInspector;
-        public ShowIfBoolAttribute(string ConditionalSourceField, bool expectedValue = true, bool HideInInspector = true)
+        public ShowIfBoolAttribute(string conditionalSourceField, bool expectedValue = true, bool hideInInspector = true)
         {
-            this.ConditionalSourceField = ConditionalSourceField;
-            this.expectedValue = expectedValue;
-            this.HideInInspector = HideInInspector;
+            this.ConditionalSourceField = conditionalSourceField;
+            this.ExpectedValue = expectedValue;
+            this.HideInInspector = hideInInspector;
         }
     }
 
@@ -78,7 +78,7 @@ namespace UnityUtilities.Attributes
             if (sourcePropertyValue != null)
             {
                 enabled = sourcePropertyValue.boolValue;
-                if (enabled == condHAtt.expectedValue) enabled = true;
+                if (enabled == condHAtt.ExpectedValue) enabled = true;
                 else enabled = false;
             }
             else

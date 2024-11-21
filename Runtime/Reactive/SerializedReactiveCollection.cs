@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
-using UniRx;
 using UnityEngine;
+
+#if USE_UNIRX_7_1
+using UniRx;
 
 namespace UnityUtilities.Reactive
 {
@@ -27,3 +29,4 @@ namespace UnityUtilities.Reactive
         }
     }
 }
+#endif

@@ -22,13 +22,13 @@ namespace UnityUtilities.Attributes
         public bool HideInInspector;
         public EvaluationModeType EvaluationMode;
         public ShowIfAttribute(
-            EvaluationModeType EvaluationMode = ShowIfAttribute.EvaluationModeType.AND,
-            bool HideInInspector = true,
-            params string[] EvaluationFunctions)
+            EvaluationModeType evaluationMode = ShowIfAttribute.EvaluationModeType.AND,
+            bool hideInInspector = true,
+            params string[] evaluationFunctions)
         {
-            this.EvaluationFunctions = EvaluationFunctions;
-            this.HideInInspector = HideInInspector;
-            this.EvaluationMode = EvaluationMode;
+            this.EvaluationFunctions = evaluationFunctions;
+            this.HideInInspector = hideInInspector;
+            this.EvaluationMode = evaluationMode;
         }
     }
 
