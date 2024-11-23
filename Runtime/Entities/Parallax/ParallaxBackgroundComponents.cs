@@ -1,3 +1,4 @@
+#if USE_ENTITIES_1_3_5
 using Unity.Entities;
 
 namespace UnityUtilities
@@ -7,3 +8,4 @@ namespace UnityUtilities
     
     }
 }
+#endif
